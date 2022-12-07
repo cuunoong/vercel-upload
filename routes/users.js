@@ -41,4 +41,17 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.get("/:username", async (req, res) => {
+  const { username } = req.params;
+
+  try {
+    const user = await User.findOne({ username });
+    if (!user) return res.json({ message: "User not found" });
+
+    return res.json(user);
+  } catch (error) {
+    return res.json({ message: error });
+  }
+});
+
 module.exports = router;
